@@ -1,0 +1,48 @@
+@charset "UTF-8";
+//@font-face {
+//  font-family: 'theSansBlack';
+//  src: url('font/TheSans_LP9_Black.eot');
+//  src: url('font/TheSans_LP9_Black.eot?#iefix') format('embedded-opentype'),
+//  url('font/TheSans-LP9Black.woff') format('woff'),
+//  url('font/TheSans_LP9_Black.ttf') format('truetype');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+//@font-face {
+//  font-family: 'theSansBold';
+//  src: url('font/thesans_lp7_bold.eot');
+//  src: url('font/thesans_lp7_bold.eot?#iefix') format('embedded-opentype'),
+//  url('font/thesans_lp7_bold.woff') format('woff'),
+//  url('font/TheSans_LP7_Bold.ttf') format('truetype');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+//@font-face {
+//  font-family: 'theSansLight';
+//  src: url('font/thesans_lp5_plain.eot');
+//  src: url('font/thesans_lp5_plain.eot?#iefix') format('embedded-opentype'),
+//  url('font/thesans_lp5_plain.woff') format('woff'),
+//  url('font/TheSans_LP5_Plain.ttf') format('truetype');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+
+@import 'compass/css3';
+@import "compass/css3/animation";
+
+//@import '_vendor/_bootstrap';
+
+
+//@import '_setup/_reset';
+@import '_setup/_definitions';
+//@import '_setup/_main';
+//@import '_setup/_header';
+//@import '_setup/_footer';
+//@import '_setup/_buttons';
+
+
+//@import '_vendor/_customScrollbar';
+//@import '_vendor/_swiper';
+//@import '_vendor/_uniform';
+
+@import '_blocks/_block_main';

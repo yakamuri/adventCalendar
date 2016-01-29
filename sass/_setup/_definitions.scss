@@ -1,0 +1,109 @@
+/* grid values */
+$innerPaddings:			  		5%;
+$innerPaddingsMobile:			5%;
+$content_max_width: 		1124px;
+$block_text_max:			 808px;
+$padding_top:					5%;
+$padding_bottom:				10%;
+
+/* breakpoints */
+$for_laptop:				1440px;
+$for_tablet:				1024px;
+$for_mobile:		 		 840px;
+
+// Defining values
+//$screen-xxs-min: 320px;
+//$screen-xxs-max: ($screen-xs-min - 1);
+//$screen-xs-min: 480px;
+//$screen-sm-min: 768px;
+//$screen-xs-max: ($screen-sm-min - 1);
+//$screen-md-min: 992px;
+//$screen-sm-max: ($screen-md-min - 1);
+//$screen-lg-min: 1200px;
+//$screen-md-max: ($screen-lg-min - 1);
+
+/* colors */
+$colorText: 				#000000;
+$colorHeadings:				#000066;
+$colorBackground:			#ecebeb;
+$colorBrand:				#000066;
+$colorHoverBg:				#8d8d8d;
+$white:						#ffffff;
+$black:						#000000;
+$colorRed:					#d70f14;
+$colorDarkRed:				#9c1f22;
+$colorGrey:					#686868;
+$colorGreen:				#64a505;
+$colorBlueGrey:				#37414b;
+
+
+/* z-index levels */
+$zindex_background:	 	10;
+$zindex_anim_elem:		50;
+$zindex_content:		100;
+$zindex_sticky:			200;
+
+.block_slider {
+	img {
+
+	}
+}
+
+
+/* ================= MIXINS ================= */
+@mixin pseudoElement() {
+	display:block;
+	content: ' ';
+}
+@mixin sprite($name) {
+	background-image:url('../images/sprites.png');
+	@if $name == burger {
+		background-position:0px 0px;
+		background-size:75px auto;
+	} @else if $name == user {
+		background-position:0px -25px;
+		background-size:75px auto;
+	} @else if $name == button_next {
+		background-position:0px -100px;
+	} @else if $name == button_next_mobile {
+		background-position:0px -50px;
+	} @else if $name == button_prev {
+		background-position:0px -220px;
+	} @else if $name == button_prev_mobile {
+		background-position:0px -110px;
+	} @else if $name == ic_facebook {
+		background-position:0px -350px;
+	} @else if $name == ic_twitter {
+		background-position:0px -400px;
+	} @else if $name == toggle_down {
+		background-position:0px -450px;
+	} @else if $name == toggle_up {
+		background-position:-50px -450px;
+	} @else if $name == play {
+		background-position:0px -500px;
+	} @else if $name == stop {
+		background-position:0px -550px;
+	} @else if $name == burger_xl {
+		background-position:0px -300px;
+		background-size:75px auto;
+	} @else if $name == user_xl {
+		background-position:0px -350px;
+		background-size:75px auto;
+	} @else if $name == logout {
+		background-position:10px -794px;
+	} @else {
+		background-position:0px 0px;
+	}
+}
+@mixin fontBrand {
+	font-family:'theSansBlack',arial,sans-serif;
+	font-weight:normal;
+}
+@mixin fontNormal {
+	font-family:arial,sans-serif;
+	font-weight:normal;
+}
+@mixin fontBold {
+	font-family:arial,sans-serif;
+	font-weight:bold;
+}

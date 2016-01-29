@@ -1,0 +1,189 @@
+$inputBgColor: #ffffff;
+$inputFgColor: #878787;
+$inputError: #ff0000;
+
+$inputPadding: 0.7em 0.45em;
+$inputMinHeight: 2.8em;/* line-height + 2*inputPadding */
+
+.uniform {
+
+	p {
+		margin:0;
+		padding:0 0 1em; 
+	}
+		
+	label {
+		@include box-sizing(border-box);
+		display:block;
+		margin:0;
+		padding:0 0 0.25em; 
+	}
+	
+	/* RADIOS */
+	.radio { 
+		@include box-sizing(border-box);
+		display:block;
+		min-height:$inputMinHeight;
+		float:left;
+		padding:0.7em 0 0;
+		
+		span {
+			@include border-radius(0px);
+			display:block;
+			
+			width:18px;height:18px;
+			background:url('../images/f_cbox_bg.png') 0 0 no-repeat;
+			
+			&.checked { 
+				background-position:0px -40px !important;
+			}
+		}
+		
+		.f_rbox { 
+			opacity:0;
+			filter:alpha(opacity=0);
+			width:18px;
+			height:18px;
+		}
+	}
+	.f_rbox_wrap,.f_cbox_wrap {
+		.fleft {
+			margin-right:20px;
+		}
+		&.error {
+			span {
+				background-position:0px -80px;
+			}
+		}
+	}
+	.f_rbox_label { 
+		@include box-sizing(border-box);
+		min-height:$inputMinHeight;
+		display:block;
+		float:left;
+		padding:0.7em 1.5em 0 0.3em; 
+	}
+
+	/* CHECKBOX */
+	.checker { 
+		display:block;
+		min-height:$inputMinHeight;
+		float:left;
+		
+		span {
+			display:block;
+			
+			width:18px;height:18px;
+			background:url('../images/f_cbox_bg.png') 0 0 no-repeat;
+			margin-top:2px;
+			
+			&.checked { 
+				background-position:0px -40px;
+			}
+		}
+		
+		.f_cbox { 
+			opacity:0;
+			filter:alpha(opacity=0); 
+			width:18px;
+			height:18px;
+		}
+	}
+	.f_cbox_label { 
+		display:block;
+		float:left;padding-left:0.5em;
+		width:90%; 
+	}
+	
+	/* SELECT */	
+	.selector {
+		width:100% !important;
+		position:relative;
+		min-height:$inputMinHeight;
+		
+		span {
+			display:block;
+			min-height:$inputMinHeight;
+			@include box-sizing(border-box);
+			@include user-select(none);
+		
+			padding: $inputPadding;
+			background:$inputBgColor url('../images/f_sel_bg.png') right 1em no-repeat;
+			color:$inputFgColor;
+			border:1px solid $inputFgColor;
+			width:100% !important;
+			position:relative; 
+		}
+		&.error {
+			span {
+				border:1px solid $inputError;
+			}
+		}
+		
+		.f_sel {
+			position:absolute;top:0px;left:0px;
+			opacity:0;
+			filter:alpha(opacity=0);
+			-webkit-transform:translateZ(0); 
+		}
+	}
+}
+
+
+.f_sel {
+	@include box-sizing(border-box);
+	@include border-radius(0);
+	margin:0px;
+	padding: $inputPadding;
+	background:$inputBgColor;
+	color:$inputFgColor;
+	border:1px solid $inputFgColor;
+	width:100%;	
+}
+.f_password_wrap {
+	position:relative;
+}
+/* NON JS INJECTED */
+.f_text,.f_password,.f_email,.f_number { 	
+	-webkit-appearance:none;
+	@include box-sizing(border-box);
+	@include border-radius(0);
+	
+	padding: $inputPadding;
+	background:$inputBgColor;
+	color:$inputFgColor;
+	border:1px solid $inputFgColor;
+	width:100%;
+	
+	&.error {
+		border:1px solid $inputError;
+	}
+}
+
+.f_password_text {
+	position:absolute;
+	top:0px;left:0px;
+}
+
+.f_tarea {
+	@include box-sizing(border-box);
+	@include border-radius(0);
+	
+	padding: $inputPadding;
+	background:$inputBgColor;
+	border:1px solid $inputFgColor;
+	color:$inputFgColor;
+	width:100%;
+	height:5.6em;
+	resize:none;
+}
+
+.f_btn {
+	@include box-sizing(border-box);
+	@include border-radius(0);
+	
+	padding: $inputPadding;
+	background:$inputBgColor;
+	color:$inputFgColor;
+	border:0px;
+}
