@@ -112,23 +112,107 @@
 
 <div id="wrapper8">
     <h3>Check the green color to go further</h3>
-    <form action="#">
-        <p>
-            <input type="checkbox" id="test1" />
-            <label for="test1">Red</label>
-        </p>
-        <p>
-            <input type="checkbox" id="test2" />
-            <label for="test2">Yellow</label>
-        </p>
-        <p>
-            <input type="checkbox" id="test3" />
-            <label for="test3">Green</label>
-        </p>
-        <p>
-            <input type="checkbox" id="test4"/>
-            <label for="test4">Blue</label>
-        </p>
-        <p><input type="submit" value="Submit" id="submit"></p>
-    </form>
+    <!--<form action="#">-->
+        <div class="container">
+            <p>
+                <input type="checkbox" id="test1" name="test1" class="mycheckbox"/>
+                <label for="test1">Red</label>
+            </p>
+            <p>
+                <input type="checkbox" id="test2" name="test2"  class="mycheckbox"/>
+                <label for="test2">Yellow</label>
+            </p>
+            <p>
+                <input type="checkbox" id="test3" class="mycheckbox green" name="test3"/>
+                <label for="test3">Green</label>
+            </p>
+            <p>
+                <input type="checkbox" id="test4" name="test4" class="mycheckbox"/>
+                <label for="test4">Blue</label>
+            </p>
+            <p><input type="submit" value="Submit" id="submit"></p>
+        </div>
+    <!--</form>-->
+</div>
+
+<div id="wrapper9">
+    <div class="container">
+        <h3>Select the green box and submit</h3>
+        <div class="demo-container-input yellow">
+            <label>
+                <input type="radio" name="test" />
+                <span>Yellow</span>
+            </label>
+        </div>
+        <div class="demo-container-input green">
+            <label>
+                <input type="radio" name="test" />
+                <span>Green</span>
+            </label>
+        </div>
+        <div class="demo-container-input blue">
+            <label>
+                <input type="radio" name="test" />
+                <span>Blue</span>
+            </label>
+        </div>
+        <div class="demo-container-input red">
+            <label>
+                <input type="radio" name="test" />
+                <span>Red</span>
+            </label>
+        </div>
+        <div class="demo-container-input submit">
+            <label>
+                <input type="submit" name="submit" value="submit"/>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div id="wrapper10">
+    <div class="container">
+        <h3>Check the checkbox to activate submit and after submit</h3>
+        <input type="checkbox" id="test" name="test" class="mycheckbox" />
+        <label for="test"></label>
+        <input type="submit" value="submit" class="mysubmit" disabled="disabled"/>
+    </div>
+</div>
+
+<div id="wrapper11">
+    <div class="container">
+        <h3>Find the green button and click it.</h3>
+        <article class="accordion">
+
+            <section id="acc1">
+                <h2><a href="#acc1">Title One</a></h2>
+                <p>This content appears on page 1.</p>
+                <div class="content red">Red</div>
+            </section>
+
+            <section id="acc2">
+                <h2><a href="#acc2">Title Two</a></h2>
+                <p>This content appears on page 2.</p>
+                <div class="content challenge">Green</div>
+            </section>
+
+            <section id="acc3">
+                <h2><a href="#acc3">Title Three</a></h2>
+                <p>This content appears on page 3.</p>
+                <div class="content blue">Blue</div>
+            </section>
+
+            <section id="acc4">
+                <h2><a href="#acc4">Title Four</a></h2>
+                <p>This content appears on page 4.</p>
+                <div class="content yellow">Yellow</div>
+            </section>
+
+            <section id="acc5">
+                <h2><a href="#acc5">Title Five</a></h2>
+                <p>This content appears on page 5.</p>
+            </section>
+
+        </article>
+    </div>
 </div>

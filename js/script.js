@@ -10,19 +10,19 @@ $(document).ready(function(){
 
         $(".popupContent").load("challenge.html #" + id, function() {
 
-            var error = $(this).siblings('.error').hide();
-            var button = $(this).find('.button');
+            var error = $(this).siblings('.error');
 
-            button.bind('click', function() {
-                if($(this).hasClass('green')) {
-                    $('.popup').hide(function () {
+            var button = $(this).find('.button');
+            button.bind('click', function(){
+                if($(this).hasClass('green')){
+                    $('.popup').hide('slow', function () {
                         $('.overlay').fadeOut('slow').css('z-index', '-1');
                         var index = grid.attr('index');
                         grid.addClass('active' + index).addClass('active');
                     });
                 }
                 else {
-                    $(this).parents('.popupContent').siblings('.error').show();
+                    error.show();
                 }
             });
 
@@ -30,7 +30,6 @@ $(document).ready(function(){
             option.bind('click', function() {
 
                 if($('#select option:selected').val() == 'green') {
-                    console.log('aici');
                     $('.popup').hide(function () {
                         $('.overlay').fadeOut('slow').css('z-index', '-1');
                         var index = grid.attr('index');
@@ -38,14 +37,14 @@ $(document).ready(function(){
                     });
                 }
                 else {
-                    $(this).parents('.popupContent').siblings('.error').show();
+                    error.show();
                 }
             });
 
             var input = $(this).find('#s');
             input.bind('keyup', function() {
                 var val = input.val();
-                var wrong = $(this).parents('.popupContent').siblings('.error');
+                //var wrong = $(this).parents('.popupContent').siblings('.error');
                 if((val.length >= 2) && (val =='green')) {
                     $('.popup').hide(function () {
                         $('.overlay').fadeOut('slow').css('z-index', '-1');
@@ -54,13 +53,12 @@ $(document).ready(function(){
                     });
                 }
                 else if((val.length > 4) && (val != "green")) {
-                    wrong.show();
+                    error.show();
                 }
                 else if((val.length <= 4)) {
-                    wrong.hide();
+                    error.hide();
                 }
             });
-
 
             var inc = $(this).find('.btn');
             inc.bind('click', function() {
@@ -68,7 +66,7 @@ $(document).ready(function(){
                 type      = $(this).attr('data-type');
                 var input = $("input[name='"+fieldName+"']");
                 var currentVal = parseInt(input.val());
-                var wrong = $(this).parents('.popupContent').siblings('.error');
+                //var wrong = $(this).parents('.popupContent').siblings('.error');
                 if (!isNaN(currentVal)) {
                     var value = $(this).siblings('.reset').val();
 
@@ -82,10 +80,10 @@ $(document).ready(function(){
                             });
                         }
                         else if((value > 0) && (value < 7)){
-                            wrong.hide();
+                            error.hide();
                         }
                         else if(value < 1) {
-                            wrong.show();
+                            error.show();
                         }
                     }
                     else if(type == 'plus') {
@@ -99,10 +97,10 @@ $(document).ready(function(){
                             });
                         }
                         else if((value >= 0) && (value < 5)) {
-                            wrong.hide();
+                            error.hide();
                         }
                         else if(value > 4) {
-                            wrong.show();
+                            error.show();
                         }
                     }
 
@@ -134,9 +132,86 @@ $(document).ready(function(){
                 var a = $(this).attr("href");
                 $(a).slideDown('slow');
                 accordion.not(a).slideUp('slow');
-
             });
 
+
+            $('.mycheckbox').click(function() {
+                $(this).parent().siblings().find('input:checkbox').prop('checked', false);
+            });
+
+            $('#submit').on('click', function(){
+
+                var checkbox = $(this).parent().siblings().find('.mycheckbox');
+                var green = $(this).parent().siblings().find('.green');
+
+                if((checkbox.is(':checked')) && (green.is(':checked'))){
+                    error.hide();
+                    $('.popup').hide(function () {
+                        $('.overlay').fadeOut('slow').css('z-index', '-1');
+                        var index = grid.attr('index');
+                        grid.addClass('active' + index).addClass('active');
+                    });
+                }
+                else {
+                    error.show();
+                }
+            });
+
+
+            $('.submit').on('click', function(){
+                var radio = $(this).siblings('.green');
+                var inp = radio.find('input:radio');
+
+                if(inp.is(':checked')){
+                    error.hide();
+                    $('.popup').hide(function () {
+                        $('.overlay').fadeOut('slow').css('z-index', '-1');
+                        var index = grid.attr('index');
+                        grid.addClass('active' + index).addClass('active');
+                    });
+                }
+                else {
+                    error.show();
+                }
+            });
+
+            var check = $(this).find('input:checkbox');
+            check.on('click', function(){
+                var submit = $(this).siblings('.mysubmit');
+                if(($(this).is(':checked')) == true) {
+                    //var enable = submit.prop('disabled', false).css('opacity', '1');
+                    submit.on('click', function(){
+                        $('.popup').hide(function () {
+                            $('.overlay').fadeOut('slow').css('z-index', '-1');
+                            var index = grid.attr('index');
+                            grid.addClass('active' + index).addClass('active');
+                        });
+                    });
+                }
+                else {
+                    submit.prop('disabled', true).css('opacity', '0.5');
+                }
+            });
+
+            var challenge = $(this).find('.content');
+            if(challenge.hasClass('challenge')) {
+                $('.challenge').bind('click', function(){
+                    $('.popup').hide('slow', function () {
+                        $('.overlay').fadeOut('slow').css('z-index', '-1');
+                        var index = grid.attr('index');
+                        grid.addClass('active' + index).addClass('active');
+
+                        var splitL = $(this).parent().siblings().find('.grid1');
+                        var splitR = $(this).parent().siblings().find('.grid2');
+                        splitL.addClass('active26');
+                        splitR.addClass('active27');
+
+                    });
+                });
+            }
+            else {
+                error.show();
+            }
         });
     }
 
@@ -152,23 +227,62 @@ $(document).ready(function(){
             $('.popup').css('top', newHeight).toggle( function() {
                 $('.overlay').fadeIn('slow').css('z-index', '1000');
             });
+
             addChallenge($(this));
     });
 
-    $('.image').on('click', function(){
 
-        var number = $(this).parent().attr('index');
-        console.log(number);
+    var $el;
+    $('.image').on('click', function() {
+        $el = $(this);
+        $('<img />', {
+            "src": $el.attr('href'),
+            "class": "larger"
 
-        var bigPic = $(this).parents('.wrapper').siblings().find('.bigImage' + number);
-        console.log(bigPic);
+        }).load(function() {
 
-        bigPic.fadeIn('slow').css('z-index', '1111');
+            $(this)
+                .appendTo('body')
+                .width($el.find('img').width())
+                .position({
+                    "of": $el.find('img'),
+                    "my": "center center",
+                    "at": "center center"
+                })
+                .animate({
+                        width: 70 + '%'
+                    }, {
+                        "duration": 1000,
+                        "easing": "easeOutQuad",
+                        "step": function(i) {
+                            $(this).position({
+                                "of": $el.find('img'),
+                                "my": "center center",
+                                "at": "center center",
+                                "collision": "fit"
+                            })
+                        }
+
+                    }
+                )
+        });
+
+        return false;
     });
 
-    $('.popup-btn-close').click(function(){
+    $('.larger').on('click', function() {
+        $el = $(this);
+        $el.fadeOut(400, function() {
+            console.log('here');
+            $el.remove();
+        })
+    });
+
+
+    $('.popup-btn-close').on('click', function(){
         $('.popup').hide( function(){
             $('.overlay').fadeOut('slow').css('z-index', '-1');
+
         });
     });
 
