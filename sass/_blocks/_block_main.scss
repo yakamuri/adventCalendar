@@ -15,7 +15,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  background: $colorWhite;
+  background: #CCCCCC;
   position: relative;
   z-index: 1;
 
@@ -26,7 +26,7 @@ body {
 
     .row {
       border:10px solid $colorRed;
-      border-radius: 10px;
+      border-radius: 5px;
 
       .cont {
         width: 166px;
@@ -46,7 +46,6 @@ body {
           height: 150px;
           cursor: pointer;
           @include opacity(1);
-          //@include transform(translate(0, 0));
 
         }
 
@@ -55,23 +54,74 @@ body {
           width: 50%;
           height: 100%;
           float: left;
+
+          @include animation-fill-mode(forwards);
         }
         .grid2 {
           background: url("/images/day25-2.png") top right no-repeat;
           height: 100%;
           width: 50%;
           float: left;
+
+          @include animation-fill-mode(forwards);
         }
 
         .active {
           @include transition-property(transform, opacity, z-index, scale);
-          @include transition-duration(0.7s);
+          @include transition-duration(1s);
           @include transition-timing-function(ease);
-          //@include transition-timing-function(cubic-bezier(.45,-0.67,.53,1.63));
-          //@include transition-timing-function(cubic-bezier(.65, 1.95, .03, .32));
-          @include transition-delay(1s);
-          @include opacity(0);
-          z-index: 20;
+          @include transition-delay(0.5s);
+
+          .grid1 {
+            @include animation-name(splitL);
+            @include animation-duration(3s);
+            @include animation-timing-function(ease-in-out);
+            @include animation-delay(1s);
+            @include animation-iteration-count(1);
+            @include animation-direction(normal);
+
+
+            @include keyframes(splitL) {
+              0% {
+                @include transform(translateX(0));
+              }
+              80%{
+                @include transform(translateX(-100px));
+              }
+              90% {
+                @include opacity(1);
+              }
+              100% {
+                @include opacity(0);
+                @include transform(translateX(-100px));
+              }
+            }
+          }
+          .grid2 {
+            @include animation-name(splitR);
+            @include animation-duration(3s);
+            @include animation-timing-function(ease-in-out);
+            @include animation-delay(1s);
+            @include animation-iteration-count(1);
+            @include animation-direction(normal);
+
+
+            @include keyframes(splitR) {
+              0% {
+                @include transform(translateX(0));
+              }
+              80% {
+                @include transform(translateX(100px));
+              }
+              90% {
+                @include opacity(1);
+              }
+              100% {
+                @include opacity(0);
+                @include transform(translateX(100px));
+              }
+            }
+          }
 
         }
         .active1 {
@@ -503,7 +553,7 @@ body {
           @include animation-name(bezierUpScale);
           @include animation-duration(3s);
           @include animation-timing-function(cubic-bezier(.77, .24, .14, .80));
-          @include animation-delay(0.5s);
+          @include animation-delay(1s);
           @include animation-iteration-count(1);
           @include animation-direction(normal);
 
@@ -536,7 +586,7 @@ body {
           @include animation-name(bezierDownScale);
           @include animation-duration(3s);
           @include animation-timing-function(cubic-bezier(.45,-0.67,.53,1.63));
-          @include animation-delay(0s);
+          @include animation-delay(1s);
           @include animation-iteration-count(1);
           @include animation-direction(normal);
 
@@ -714,55 +764,6 @@ body {
         .active25 {
 
         }
-        .active26 {
-          @include animation-name(splitL);
-          @include animation-duration(3s);
-          @include animation-timing-function(ease);
-          @include animation-delay(1s);
-          @include animation-iteration-count(1);
-          @include animation-direction(normal);
-          @include animation-fill-mode(forwards);
-
-
-          @include keyframes(splitL) {
-            0% {
-              @include transform(translateX(0));
-            }
-            80%{
-              @include transform(translateX(-300%));
-            }
-            90% {
-            }
-            100% {
-              @include opacity(0);
-            }
-          }
-        }
-        .active27 {
-          @include animation-name(splitR);
-          @include animation-duration(3s);
-          @include animation-timing-function(ease);
-          @include animation-delay(1s);
-          @include animation-iteration-count(1);
-          @include animation-direction(normal);
-          @include animation-fill-mode(forwards);
-
-
-          @include keyframes(splitR) {
-            0% {
-              @include transform(translateX(0));
-            }
-            80% {
-              @include transform(translateX(300%));
-            }
-            90% {
-            }
-            100% {
-              @include opacity(0);
-            }
-          }
-        }
-
 
         .image {
           position: absolute;
@@ -775,9 +776,15 @@ body {
           .thumb {
             height: 150px;
             width: 150px;
+            @include transition-property(transform);
+            @include transition-duration(0.5s);
+            @include transition-timing-function(ease);
           }
+
           .bigThumb {
-            display: none;
+            width: 100%;
+            height: 100%;
+            @include transform(scale(5));
           }
         }
       }
@@ -807,6 +814,15 @@ body {
   @include transition-duration(1s);
   @include transition-timing-function(ease);
   @include transition-delay(0.2);
+
+
+  .enlarged {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+  }
+
 }
 .popup-btn-close {
   position:absolute;
@@ -1881,8 +1897,33 @@ h3 {
   }
 }
 
-.larger {
+.overlay-zoom {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  z-index: 10001;
-  cursor: pointer;
+  top: 0;
+  background:rgba(0,0,0,0.7);
+  z-index: -2;
+}
+.popup-zoom {
+  display: none;
+  position: relative;
+  top: 100px;
+  width: 970px;
+  height: 600px;
+  margin: 0 auto;
+  background: $colorWhite;
+  z-index: 9999;
+  @include transition-property(all);
+  @include transition-duration(1s);
+  @include transition-timing-function(ease);
+  @include transition-delay(0.2);
+
+  .enlarged {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+  }
+
 }

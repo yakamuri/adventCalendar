@@ -1,7 +1,18 @@
 $(document).ready(function(){
 
-    function addChallenge(grid) {
+    function hideOverlay(grid) {
+        $('.popup').hide('slow', function () {
+            $('.overlay').fadeOut('slow').css('z-index', '-1');
+            var index = grid.attr('index');
+            grid.addClass('active' + index).addClass('active');
+            setTimeout(function(){
+                grid.remove();
+            }, 4000);
+        });
+    }
 
+
+    function addChallenge(grid) {
         var wrap = grid.parent();
         var id = wrap.attr('href').substring(1);
         var index = grid.attr('index');
@@ -10,53 +21,40 @@ $(document).ready(function(){
 
         $(".popupContent").load("challenge.html #" + id, function() {
 
-            var error = $(this).siblings('.error');
+            $(this).siblings('.error').hide();
 
             var button = $(this).find('.button');
             button.bind('click', function(){
                 if($(this).hasClass('green')){
-                    $('.popup').hide('slow', function () {
-                        $('.overlay').fadeOut('slow').css('z-index', '-1');
-                        var index = grid.attr('index');
-                        grid.addClass('active' + index).addClass('active');
-                    });
+                    hideOverlay(grid);
                 }
                 else {
-                    error.show();
+                    $(this).parents('.popupContent').siblings('.error').show();
                 }
             });
 
-            var option = $(this).find('#select option');
-            option.bind('click', function() {
-
-                if($('#select option:selected').val() == 'green') {
-                    $('.popup').hide(function () {
-                        $('.overlay').fadeOut('slow').css('z-index', '-1');
-                        var index = grid.attr('index');
-                        grid.addClass('active' + index).addClass('active');
-                    });
+            var option = $(this).find('#select');
+            option.on('change', function() {
+                if(option.val() == 'green') {
+                    hideOverlay(grid);
                 }
                 else {
-                    error.show();
+                    $(this).parents('.popupContent').siblings('.error').show();
                 }
             });
 
             var input = $(this).find('#s');
+            $(this).parents('.popupContent').siblings('.error').hide();
             input.bind('keyup', function() {
                 var val = input.val();
-                //var wrong = $(this).parents('.popupContent').siblings('.error');
                 if((val.length >= 2) && (val =='green')) {
-                    $('.popup').hide(function () {
-                        $('.overlay').fadeOut('slow').css('z-index', '-1');
-                        var index = grid.attr('index');
-                        grid.addClass('active' + index).addClass('active');
-                    });
+                    hideOverlay(grid);
                 }
                 else if((val.length > 4) && (val != "green")) {
-                    error.show();
+                    $(this).parents('.popupContent').siblings('.error').show();
                 }
                 else if((val.length <= 4)) {
-                    error.hide();
+                    $(this).parents('.popupContent').siblings('.error').hide();
                 }
             });
 
@@ -66,41 +64,32 @@ $(document).ready(function(){
                 type      = $(this).attr('data-type');
                 var input = $("input[name='"+fieldName+"']");
                 var currentVal = parseInt(input.val());
-                //var wrong = $(this).parents('.popupContent').siblings('.error');
                 if (!isNaN(currentVal)) {
                     var value = $(this).siblings('.reset').val();
 
                     if(type == 'minus') {
                         input.val(currentVal - 1);
                         if(value == 6){
-                            $('.popup').hide(function () {
-                                $('.overlay').fadeOut('slow').css('z-index', '-1');
-                                var index = grid.attr('index');
-                                grid.addClass('active' + index).addClass('active');
-                            });
+                            hideOverlay(grid);
                         }
                         else if((value > 0) && (value < 7)){
-                            error.hide();
+                            $(this).parents('.popupContent').siblings('.error').hide();
                         }
                         else if(value < 1) {
-                            error.show();
+                            $(this).parents('.popupContent').siblings('.error').show();
                         }
                     }
                     else if(type == 'plus') {
                         input.val(currentVal + 1);
 
                         if(value == 4){
-                            $('.popup').hide(function () {
-                                $('.overlay').fadeOut('slow').css('z-index', '-1');
-                                var index = grid.attr('index');
-                                grid.addClass('active' + index).addClass('active');
-                            });
+                            hideOverlay(grid);
                         }
                         else if((value >= 0) && (value < 5)) {
-                            error.hide();
+                            $(this).parents('.popupContent').siblings('.error').hide();
                         }
                         else if(value > 4) {
-                            error.show();
+                            $(this).parents('.popupContent').siblings('.error').show();
                         }
                     }
 
@@ -145,15 +134,11 @@ $(document).ready(function(){
                 var green = $(this).parent().siblings().find('.green');
 
                 if((checkbox.is(':checked')) && (green.is(':checked'))){
-                    error.hide();
-                    $('.popup').hide(function () {
-                        $('.overlay').fadeOut('slow').css('z-index', '-1');
-                        var index = grid.attr('index');
-                        grid.addClass('active' + index).addClass('active');
-                    });
+                    $(this).parents('.popupContent').siblings('.error').hide();
+                    hideOverlay(grid);
                 }
                 else {
-                    error.show();
+                    $(this).parents('.popupContent').siblings('.error').show();
                 }
             });
 
@@ -163,15 +148,11 @@ $(document).ready(function(){
                 var inp = radio.find('input:radio');
 
                 if(inp.is(':checked')){
-                    error.hide();
-                    $('.popup').hide(function () {
-                        $('.overlay').fadeOut('slow').css('z-index', '-1');
-                        var index = grid.attr('index');
-                        grid.addClass('active' + index).addClass('active');
-                    });
+                    $(this).parents('.popupContent').siblings('.error').hide();
+                    hideOverlay(grid);
                 }
                 else {
-                    error.show();
+                    $(this).parents('.popupContent').siblings('.error').show();
                 }
             });
 
@@ -179,39 +160,17 @@ $(document).ready(function(){
             check.on('click', function(){
                 var submit = $(this).siblings('.mysubmit');
                 if(($(this).is(':checked')) == true) {
-                    //var enable = submit.prop('disabled', false).css('opacity', '1');
-                    submit.on('click', function(){
-                        $('.popup').hide(function () {
-                            $('.overlay').fadeOut('slow').css('z-index', '-1');
-                            var index = grid.attr('index');
-                            grid.addClass('active' + index).addClass('active');
-                        });
+                    submit.prop('disabled', false).css('opacity', '1');
+                    submit.bind('click', function(){
+                        hideOverlay(grid);
                     });
                 }
+
                 else {
                     submit.prop('disabled', true).css('opacity', '0.5');
                 }
             });
 
-            var challenge = $(this).find('.content');
-            if(challenge.hasClass('challenge')) {
-                $('.challenge').bind('click', function(){
-                    $('.popup').hide('slow', function () {
-                        $('.overlay').fadeOut('slow').css('z-index', '-1');
-                        var index = grid.attr('index');
-                        grid.addClass('active' + index).addClass('active');
-
-                        var splitL = $(this).parent().siblings().find('.grid1');
-                        var splitR = $(this).parent().siblings().find('.grid2');
-                        splitL.addClass('active26');
-                        splitR.addClass('active27');
-
-                    });
-                });
-            }
-            else {
-                error.show();
-            }
         });
     }
 
@@ -227,62 +186,48 @@ $(document).ready(function(){
             $('.popup').css('top', newHeight).toggle( function() {
                 $('.overlay').fadeIn('slow').css('z-index', '1000');
             });
-
             addChallenge($(this));
     });
 
 
-    var $el;
-    $('.image').on('click', function() {
-        $el = $(this);
-        $('<img />', {
-            "src": $el.attr('href'),
-            "class": "larger"
+    $('.image').on('click', function (e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
 
-        }).load(function() {
+        var initial_position = $(this).find("img")[0].getBoundingClientRect();
+        console.log(initial_position);
+        var top = $(this).position().top;
+        var left = $(this).position().left;
 
-            $(this)
-                .appendTo('body')
-                .width($el.find('img').width())
-                .position({
-                    "of": $el.find('img'),
-                    "my": "center center",
-                    "at": "center center"
-                })
-                .animate({
-                        width: 70 + '%'
-                    }, {
-                        "duration": 1000,
-                        "easing": "easeOutQuad",
-                        "step": function(i) {
-                            $(this).position({
-                                "of": $el.find('img'),
-                                "my": "center center",
-                                "at": "center center",
-                                "collision": "fit"
-                            })
-                        }
+        $('.overlay-zoom').fadeIn(400, function() {
 
-                    }
-                )
+            $(this).css('z-index', '1000');
+            var final_position = $(this)[0].getBoundingClientRect();
+            var pos_string = 'position: fixed; top:' + initial_position.top + 'px;left:' + initial_position.left + 'px; width:' +initial_position.width + 'px; height:' +initial_position.height + 'px';
+
+            console.log(pos_string);
+            var string = '<img class="enlarged" src="' + href + '" style="'+pos_string+'"  alt="" /><div class="popup-btn-close" /></div>';
+            $(this).html(string);
+
+            var anim = $(this).find('img');
+            var final_position_string = {top:final_position.top ,left: final_position.left,width:final_position.width, height: +final_position.height};
+
+            console.log(final_position_string);
+            anim.animate(final_position_string,1000);
+
+            var close = $(this).find('.popup-btn-close');
+            close.on('click', function(){
+                //$('.popup-zoom').fadeOut('slow', function(){
+                //    $('.overlay-zoom').fadeOut('slow').css('z-index', '-1');
+                //});
+                $('.overlay-zoom').fadeOut('slow');
+            });
         });
-
-        return false;
     });
 
-    $('.larger').on('click', function() {
-        $el = $(this);
-        $el.fadeOut(400, function() {
-            console.log('here');
-            $el.remove();
-        })
-    });
-
-
-    $('.popup-btn-close').on('click', function(){
-        $('.popup').hide( function(){
+    $('.popup-btn-close').bind('click', function(){
+        $('.popup').hide('slow', function(){
             $('.overlay').fadeOut('slow').css('z-index', '-1');
-
         });
     });
 
